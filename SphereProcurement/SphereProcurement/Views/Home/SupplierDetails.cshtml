@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SupplierDetails</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/scripts/bootstrap.min.js"></script>
+    <script src="~/scripts/GetData.js"></script>  
+    <script>
+        $(document).ready(function () {
+            var apiBaseUrl = "http://localhost:1218/";
+            $('#btnGetData').click(function () {
+                $.ajax({
+                    url: apiBaseUrl + 'api/Employee/getAll',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        var $table = $('<table/>').addClass('dataTable table table-bordered table-striped');
+                        var $header = $('<thead/>').html('<tr><th>Supplier Id</th><th>Name</th></tr>');
+                        $table.append($header);
+                        $.each(data, function (i, val) {
+                            var $row = $('<tr/>');
+                            $row.append($('<td/>').html(val.Name));
+                            $row.append($('<td/>').html(val.SupplierId));
+                            $table.append($row);
+                        });
+                        $('#updatePanel').html($table);
+                    },
+                    error: function () {
+                        alert('Error!');
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div> 
+        <div class="container py-4">
+            <h5 class="text-center">HOW TO RETRIEVE DATA FROM DATABASE IN THE ASP.NET Web API USING JQUERY</h5>
+            <div class="card">
+                <div class="card-header bg-primary text-uppercase text-white">
+                    <h5 class="card-title">Supplier List</h5>
+                </div>
+
+                <div class="card-body">
+                    <button id="btnGetData" type="button" class="btn btn-outline-primary rounded-0">Load Supplier List</button>
+                </div>
+
+                <div id="updatePanel" style="padding:20px;">
+
+                </div>
+            </div>
+        </div> 
+    </div>
+</body>
+</html>
