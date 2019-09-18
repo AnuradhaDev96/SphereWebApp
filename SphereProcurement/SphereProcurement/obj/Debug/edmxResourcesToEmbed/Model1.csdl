@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProcurementDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="supplier">
+    <Key>
+      <PropertyRef Name="supplierId" />
+    </Key>
+    <Property Name="supplierId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="contactNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="supplier_items" Relationship="ProcurementDBModel.supIem_fk" FromRole="supplier" ToRole="supplier_items" />
+  </EntityType>
+  <EntityContainer Name="ProcurementDBEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="suppliers" EntityType="Self.supplier" />
+    <EntitySet Name="supplier_items" EntityType="ProcurementDBModel.supplier_items" />
+    <AssociationSet Name="supIem_fk" Association="ProcurementDBModel.supIem_fk">
+      <End Role="supplier" EntitySet="suppliers" />
+      <End Role="supplier_items" EntitySet="supplier_items" />
+    </AssociationSet>
+    <EntitySet Name="database_firewall_rules" EntityType="ProcurementDBModel.database_firewall_rules" />
+  </EntityContainer>
+  <EntityType Name="supplier_items">
+    <Key>
+      <PropertyRef Name="supItemId" />
+    </Key>
+    <Property Name="supItemId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="supplierId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="itemName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="supplier" Relationship="ProcurementDBModel.supIem_fk" FromRole="supplier_items" ToRole="supplier" />
+  </EntityType>
+  <Association Name="supIem_fk">
+    <End Type="ProcurementDBModel.supplier" Role="supplier" Multiplicity="0..1" />
+    <End Type="ProcurementDBModel.supplier_items" Role="supplier_items" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="supplier">
+        <PropertyRef Name="supplierId" />
+      </Principal>
+      <Dependent Role="supplier_items">
+        <PropertyRef Name="supplierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="start_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="end_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+</Schema>

@@ -22,6 +22,16 @@ namespace SphereProcurement.Controllers
 
         }
 
+        [Route("getAllSups")]
+        [HttpGet]
+        public IEnumerable<supplier> Get()
+        {
+            using (ProcurementDBEntities1 dbContext = new ProcurementDBEntities1())
+            {
+                return dbContext.suppliers.ToList();
+            }
+        }
+
         //method to get all suppliers
         [Route("getAll")]
         [HttpGet]
