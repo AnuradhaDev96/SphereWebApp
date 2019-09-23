@@ -17,6 +17,9 @@ namespace SphereProcurement
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
+            //enable cors
+            config.EnableCors();
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 

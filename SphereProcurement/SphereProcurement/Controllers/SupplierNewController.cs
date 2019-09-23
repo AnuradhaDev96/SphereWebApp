@@ -5,12 +5,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace SphereProcurement.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("db/Supplier")]
     public class SupplierNewController : ApiController
     {
+        
         [Route("getAllSups")]
         [HttpGet]
         public HttpResponseMessage Get()
