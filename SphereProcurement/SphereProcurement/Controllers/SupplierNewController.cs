@@ -11,11 +11,9 @@ namespace SphereProcurement.Controllers
     [RoutePrefix("db/Supplier")]
     public class SupplierNewController : ApiController
     {
-        //ProcurementDBEntities1 dbContext = new ProcurementDBEntities1();
-
         [Route("getAllSups")]
         [HttpGet]
-        public IHttpActionResult Get()
+        public HttpResponseMessage Get()
         {
             using (ProcurementDBEntities1 dbContext = new ProcurementDBEntities1())
             {
@@ -23,22 +21,18 @@ namespace SphereProcurement.Controllers
                 try
                 {
                     var suppliers = dbContext.suppliers.SqlQuery(@"select * from suppliers").ToList();
-                    //var jsonResult = JsonConvert.SerializeObject(suppliers);
-                    //return jsonResult;
-                    return Ok(suppliers);
+                    return Request.CreateResponse(HttpStatusCode.OK, new {statusCode= HttpStatusCode.OK, data = suppliers}); 
                 }
                 catch (Exception e)
                 {
-                    //var jsonResult = JsonConvert.SerializeObject(e.Message);
-                    //return jsonResult;
-                    return NotFound();
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new {statusCode= HttpStatusCode.NotFound, message = e.Message });
                 }                
             }
         }
 
         [Route("addSups")]
         [HttpPost]
-        public IHttpActionResult PostSupplier(supplier supplier)
+        public HttpResponseMessage PostSupplier(supplier supplier)
         {
             using (ProcurementDBEntities1 dbContext = new ProcurementDBEntities1())
             {
@@ -47,15 +41,13 @@ namespace SphereProcurement.Controllers
                 {
                     var suppliers = dbContext.suppliers.Add(supplier);
                     dbContext.SaveChanges();
-                    //var jsonResult = JsonConvert.SerializeObject(suppliers);
-                    //return jsonResult;
-                    return Ok(suppliers);
+                    HttpResponseMessage response = new HttpResponseMessage();
+                    response = Request.CreateResponse(HttpStatusCode.OK, new { statusCode = HttpStatusCode.OK, message = "Supplier Added Succesfully"});
+                    return response;
                 }
                 catch (Exception e)
                 {
-                    //var jsonResult = JsonConvert.SerializeObject(e.Message);
-                    //return jsonResult;
-                    return NotFound();
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound,  message = e.Message }); ;
                 }
 
             }
