@@ -17,7 +17,5 @@ namespace SphereProcurement
         public string supItemId { get; set; }
         public string supplierId { get; set; }
         public string itemName { get; set; }
-    
-        public virtual supplier supplier { get; set; }
     }
 }

@@ -1,5 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ProcurementDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="payments">
+    <Key>
+      <PropertyRef Name="paymentId" />
+    </Key>
+    <Property Name="paymentId" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="purchaseOrderId" Type="varchar" MaxLength="10" />
+    <Property Name="amount" Type="float" />
+    <Property Name="paidOn" Type="date" />
+    <Property Name="paidBy" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="purchaseRequests">
+    <Key>
+      <PropertyRef Name="requestId" />
+    </Key>
+    <Property Name="requestId" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="totalAmount" Type="float" />
+    <Property Name="createdBy" Type="varchar" MaxLength="10" />
+    <Property Name="requestStatus" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="siteManagers">
+    <Key>
+      <PropertyRef Name="smanagerNo" />
+    </Key>
+    <Property Name="smanagerNo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="sname" Type="varchar" MaxLength="20" />
+    <Property Name="snic" Type="varchar" MaxLength="12" />
+    <Property Name="scontactNo" Type="varchar" MaxLength="10" />
+    <Property Name="site" Type="varchar" MaxLength="10" />
+    <Property Name="approvedValue" Type="float" />
+  </EntityType>
   <EntityType Name="supplier_items">
     <Key>
       <PropertyRef Name="supItemId" />
@@ -36,19 +66,10 @@ warning 6002: The table/view 'ProcurementDB.sys.database_firewall_rules' does no
     <Property Name="create_date" Type="datetime" Nullable="false" />
     <Property Name="modify_date" Type="datetime" Nullable="false" />
   </EntityType>
-  <Association Name="supIem_fk">
-    <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1" />
-    <End Role="supplier_items" Type="Self.supplier_items" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="suppliers">
-        <PropertyRef Name="supplierId" />
-      </Principal>
-      <Dependent Role="supplier_items">
-        <PropertyRef Name="supplierId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="ProcurementDBModelStoreContainer">
+    <EntitySet Name="payments" EntityType="Self.payments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="purchaseRequests" EntityType="Self.purchaseRequests" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="siteManagers" EntityType="Self.siteManagers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="supplier_items" EntityType="Self.supplier_items" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
@@ -61,9 +82,5 @@ warning 6002: The table/view 'ProcurementDB.sys.database_firewall_rules' does no
     [database_firewall_rules].[modify_date] AS [modify_date]
     FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
     </EntitySet>
-    <AssociationSet Name="supIem_fk" Association="Self.supIem_fk">
-      <End Role="suppliers" EntitySet="suppliers" />
-      <End Role="supplier_items" EntitySet="supplier_items" />
-    </AssociationSet>
   </EntityContainer>
 </Schema>

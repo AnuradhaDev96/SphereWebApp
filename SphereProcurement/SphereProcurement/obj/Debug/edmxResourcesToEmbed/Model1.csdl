@@ -9,16 +9,14 @@
     <Property Name="address" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="contactNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="email" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="supplier_items" Relationship="ProcurementDBModel.supIem_fk" FromRole="supplier" ToRole="supplier_items" />
   </EntityType>
   <EntityContainer Name="ProcurementDBEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="suppliers" EntityType="Self.supplier" />
     <EntitySet Name="supplier_items" EntityType="ProcurementDBModel.supplier_items" />
-    <AssociationSet Name="supIem_fk" Association="ProcurementDBModel.supIem_fk">
-      <End Role="supplier" EntitySet="suppliers" />
-      <End Role="supplier_items" EntitySet="supplier_items" />
-    </AssociationSet>
     <EntitySet Name="database_firewall_rules" EntityType="ProcurementDBModel.database_firewall_rules" />
+    <EntitySet Name="payments" EntityType="ProcurementDBModel.payment" />
+    <EntitySet Name="purchaseRequests" EntityType="ProcurementDBModel.purchaseRequest" />
+    <EntitySet Name="siteManagers" EntityType="ProcurementDBModel.siteManager" />
   </EntityContainer>
   <EntityType Name="supplier_items">
     <Key>
@@ -27,20 +25,7 @@
     <Property Name="supItemId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="supplierId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="itemName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="supplier" Relationship="ProcurementDBModel.supIem_fk" FromRole="supplier_items" ToRole="supplier" />
   </EntityType>
-  <Association Name="supIem_fk">
-    <End Type="ProcurementDBModel.supplier" Role="supplier" Multiplicity="0..1" />
-    <End Type="ProcurementDBModel.supplier_items" Role="supplier_items" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="supplier">
-        <PropertyRef Name="supplierId" />
-      </Principal>
-      <Dependent Role="supplier_items">
-        <PropertyRef Name="supplierId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="database_firewall_rules">
     <Key>
       <PropertyRef Name="id" />
@@ -56,5 +41,35 @@
     <Property Name="end_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
     <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="payment">
+    <Key>
+      <PropertyRef Name="paymentId" />
+    </Key>
+    <Property Name="paymentId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="purchaseOrderId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="amount" Type="Double" />
+    <Property Name="paidOn" Type="DateTime" Precision="0" />
+    <Property Name="paidBy" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="purchaseRequest">
+    <Key>
+      <PropertyRef Name="requestId" />
+    </Key>
+    <Property Name="requestId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="totalAmount" Type="Double" />
+    <Property Name="createdBy" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="requestStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="siteManager">
+    <Key>
+      <PropertyRef Name="smanagerNo" />
+    </Key>
+    <Property Name="smanagerNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="sname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="snic" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="scontactNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="site" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="approvedValue" Type="Double" />
   </EntityType>
 </Schema>

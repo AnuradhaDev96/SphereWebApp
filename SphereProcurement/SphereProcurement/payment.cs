@@ -12,12 +12,12 @@ namespace SphereProcurement
     using System;
     using System.Collections.Generic;
     
-    public partial class supplier
+    public partial class payment
     {
-        public string supplierId { get; set; }
-        public string name { get; set; }
-        public string address { get; set; }
-        public string contactNo { get; set; }
-        public string email { get; set; }
+        public string paymentId { get; set; }
+        public string purchaseOrderId { get; set; }
+        public Nullable<double> amount { get; set; }
+        public Nullable<System.DateTime> paidOn { get; set; }
+        public string paidBy { get; set; }
     }
 }

@@ -15,14 +15,52 @@ namespace SphereProcurement.Controllers
 
         [Route("getAllSups")]
         [HttpGet]
-        public Object Get()
+        public IHttpActionResult Get()
         {
             using (ProcurementDBEntities1 dbContext = new ProcurementDBEntities1())
             {
-                var suppliers = dbContext.suppliers.SqlQuery(@"select * from suppliers").ToList<supplier>();
-                var jsonResult = JsonConvert.SerializeObject(suppliers);
-                return jsonResult;
+                
+                try
+                {
+                    var suppliers = dbContext.suppliers.SqlQuery(@"select * from suppliers").ToList();
+                    //var jsonResult = JsonConvert.SerializeObject(suppliers);
+                    //return jsonResult;
+                    return Ok(suppliers);
+                }
+                catch (Exception e)
+                {
+                    //var jsonResult = JsonConvert.SerializeObject(e.Message);
+                    //return jsonResult;
+                    return NotFound();
+                }                
             }
         }
+
+        [Route("addSups")]
+        [HttpPost]
+        public IHttpActionResult PostSupplier(supplier supplier)
+        {
+            using (ProcurementDBEntities1 dbContext = new ProcurementDBEntities1())
+            {
+
+                try
+                {
+                    var suppliers = dbContext.suppliers.Add(supplier);
+                    dbContext.SaveChanges();
+                    //var jsonResult = JsonConvert.SerializeObject(suppliers);
+                    //return jsonResult;
+                    return Ok(suppliers);
+                }
+                catch (Exception e)
+                {
+                    //var jsonResult = JsonConvert.SerializeObject(e.Message);
+                    //return jsonResult;
+                    return NotFound();
+                }
+
+            }
+        }
+
+
     }
 }

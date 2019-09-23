@@ -7,9 +7,10 @@
       <Diagram DiagramId="e0ac465c8c7e465fba24c39cac780868" Name="Diagram1">
         <EntityTypeShape EntityType="ProcurementDBModel.supplier" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ProcurementDBModel.supplier_items" Width="1.5" PointX="3" PointY="1" />
-        <AssociationConnector Association="ProcurementDBModel.supIem_fk" />
         <EntityTypeShape EntityType="ProcurementDBModel.database_firewall_rules" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="ProcurementDBModel.payment" Width="1.5" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ProcurementDBModel.purchaseRequest" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ProcurementDBModel.siteManager" Width="1.5" PointX="5.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

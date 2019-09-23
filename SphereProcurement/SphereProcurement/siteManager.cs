@@ -12,12 +12,13 @@ namespace SphereProcurement
     using System;
     using System.Collections.Generic;
     
-    public partial class supplier
+    public partial class siteManager
     {
-        public string supplierId { get; set; }
-        public string name { get; set; }
-        public string address { get; set; }
-        public string contactNo { get; set; }
-        public string email { get; set; }
+        public string smanagerNo { get; set; }
+        public string sname { get; set; }
+        public string snic { get; set; }
+        public string scontactNo { get; set; }
+        public string site { get; set; }
+        public Nullable<double> approvedValue { get; set; }
     }
 }

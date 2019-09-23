@@ -33,5 +33,38 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="payments">
+      <EntityTypeMapping TypeName="ProcurementDBModel.payment">
+        <MappingFragment StoreEntitySet="payments">
+          <ScalarProperty Name="paidBy" ColumnName="paidBy" />
+          <ScalarProperty Name="paidOn" ColumnName="paidOn" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="purchaseOrderId" ColumnName="purchaseOrderId" />
+          <ScalarProperty Name="paymentId" ColumnName="paymentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="purchaseRequests">
+      <EntityTypeMapping TypeName="ProcurementDBModel.purchaseRequest">
+        <MappingFragment StoreEntitySet="purchaseRequests">
+          <ScalarProperty Name="requestStatus" ColumnName="requestStatus" />
+          <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+          <ScalarProperty Name="totalAmount" ColumnName="totalAmount" />
+          <ScalarProperty Name="requestId" ColumnName="requestId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="siteManagers">
+      <EntityTypeMapping TypeName="ProcurementDBModel.siteManager">
+        <MappingFragment StoreEntitySet="siteManagers">
+          <ScalarProperty Name="approvedValue" ColumnName="approvedValue" />
+          <ScalarProperty Name="site" ColumnName="site" />
+          <ScalarProperty Name="scontactNo" ColumnName="scontactNo" />
+          <ScalarProperty Name="snic" ColumnName="snic" />
+          <ScalarProperty Name="sname" ColumnName="sname" />
+          <ScalarProperty Name="smanagerNo" ColumnName="smanagerNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
