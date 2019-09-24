@@ -56,6 +56,103 @@ namespace SphereProcurement.Controllers
             }
         }
 
+        [Route("deleteSups/{id}")]
+        [HttpDelete]
+        public HttpResponseMessage DeleteSupplier([FromUri]string id)
+        {
+            using (ProcurementDBEntities1 dbContext = new ProcurementDBEntities1())
+            {
 
+                try
+                {
+                    HttpResponseMessage response = new HttpResponseMessage();
+                    supplier supplierObj = dbContext.suppliers.Find(id);
+                    if(supplierObj == null)
+                    {                        
+                        response = Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = "Supplier cannot be found" });
+                    }
+                    else
+                    {
+                        dbContext.suppliers.Remove(supplierObj);
+                        dbContext.SaveChanges();
+                        response = Request.CreateResponse(HttpStatusCode.OK, new { statusCode = HttpStatusCode.OK, message = "Supplier deleted successfully" });
+                    }
+                    
+                    return response;
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); ;
+                }
+
+            }
+        }
+
+        [Route("getSupplierById/{id}")]
+        [HttpGet]
+        public HttpResponseMessage GetSupplierById([FromUri]string id)
+        {
+            using (ProcurementDBEntities1 dbContext = new ProcurementDBEntities1())
+            {
+
+                try
+                {
+                    HttpResponseMessage response = new HttpResponseMessage();
+                    supplier supplierObj = dbContext.suppliers.Find(id);
+                    if (supplierObj == null)
+                    {
+                        response = Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = "Supplier cannot be found" });
+                    }
+                    else
+                    {                        
+                        response = Request.CreateResponse(HttpStatusCode.OK, new { statusCode = HttpStatusCode.OK, data = supplierObj });
+                    }
+
+                    return response;
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); ;
+                }
+
+            }
+        }
+
+        [Route("editSupplierById/{id}")]
+        [HttpPut]
+        public HttpResponseMessage EditSupplierById([FromUri]string id, [FromBody]supplier supplier)
+        {
+            using (ProcurementDBEntities1 dbContext = new ProcurementDBEntities1())
+            {
+
+                try
+                {
+                    HttpResponseMessage response = new HttpResponseMessage();
+                    supplier supplierObj = dbContext.suppliers.Find(id);
+                    if (supplierObj == null)
+                    {
+                        response = Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = "Supplier cannot be found" });
+                    }
+                    else
+                    {
+                        supplierObj.supplierId = supplier.supplierId;
+                        supplierObj.name = supplier.name;
+                        supplierObj.address = supplier.address;
+                        supplierObj.contactNo = supplier.contactNo;
+                        supplierObj.email = supplier.email;
+                        dbContext.Entry(supplierObj).State = System.Data.Entity.EntityState.Modified;
+                        dbContext.SaveChanges();
+                        response = Request.CreateResponse(HttpStatusCode.OK, new { statusCode = HttpStatusCode.OK, message = "Supplier edited successfully" });
+                    }
+
+                    return response;
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); ;
+                }
+
+            }
+        }
     }
 }
