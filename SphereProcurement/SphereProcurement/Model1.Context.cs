@@ -26,10 +26,12 @@ namespace SphereProcurement
         }
     
         public virtual DbSet<supplier> suppliers { get; set; }
-        public virtual DbSet<supplier_items> supplier_items { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
         public virtual DbSet<payment> payments { get; set; }
         public virtual DbSet<purchaseRequest> purchaseRequests { get; set; }
         public virtual DbSet<siteManager> siteManagers { get; set; }
+        public virtual DbSet<supplier_items> supplier_items { get; set; }
+        public virtual DbSet<inventory> inventories { get; set; }
+        public virtual DbSet<order> orders { get; set; }
     }
 }

@@ -12,11 +12,17 @@ namespace SphereProcurement
     using System;
     using System.Collections.Generic;
     
-    public partial class supplier_items
+    public partial class inventory
     {
-        public string supItemId { get; set; }
-        public string supplierId { get; set; }
-        public string itemName { get; set; }
-        public Nullable<double> unitPrice { get; set; }
+        public string itemId { get; set; }
+        public string name { get; set; }
+        public string category { get; set; }
+        public string brand { get; set; }
+        public string description { get; set; }
+        public string source { get; set; }
+        public Nullable<double> maxStock { get; set; }
+        public Nullable<double> currentStock { get; set; }
+        public string unit { get; set; }
+        public string status { get; set; }
     }
 }

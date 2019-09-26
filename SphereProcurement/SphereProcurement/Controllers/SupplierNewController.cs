@@ -35,7 +35,7 @@ namespace SphereProcurement.Controllers
 
         [Route("addSups")]
         [HttpPost]
-        public HttpResponseMessage PostSupplier(supplier supplier)
+        public HttpResponseMessage PostSupplier([FromBody]supplier supplier)
         {
             using (ProcurementDBEntities1 dbContext = new ProcurementDBEntities1())
             {

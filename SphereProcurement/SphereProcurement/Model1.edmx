@@ -5,6 +5,31 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ProcurementDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="inventory">
+          <Key>
+            <PropertyRef Name="itemId" />
+          </Key>
+          <Property Name="itemId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="30" />
+          <Property Name="category" Type="varchar" MaxLength="20" />
+          <Property Name="brand" Type="varchar" MaxLength="30" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+          <Property Name="source" Type="varchar" MaxLength="20" />
+          <Property Name="maxStock" Type="float" />
+          <Property Name="currentStock" Type="float" />
+          <Property Name="unit" Type="varchar" MaxLength="10" />
+          <Property Name="status" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="reqId" Type="varchar" MaxLength="15" />
+          <Property Name="createBy" Type="varchar" MaxLength="20" />
+          <Property Name="date" Type="date" />
+          <Property Name="status" Type="varchar" MaxLength="15" />
+        </EntityType>
         <EntityType Name="payments">
           <Key>
             <PropertyRef Name="paymentId" />
@@ -38,10 +63,12 @@
         <EntityType Name="supplier_items">
           <Key>
             <PropertyRef Name="supItemId" />
+            <PropertyRef Name="supplierId" />
           </Key>
           <Property Name="supItemId" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="supplierId" Type="varchar" MaxLength="10" />
-          <Property Name="itemName" Type="varchar" MaxLength="10" />
+          <Property Name="supplierId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="itemName" Type="varchar" MaxLength="30" />
+          <Property Name="unitPrice" Type="float" />
         </EntityType>
         <EntityType Name="suppliers">
           <Key>
@@ -72,6 +99,8 @@ warning 6002: The table/view 'ProcurementDB.sys.database_firewall_rules' does no
           <Property Name="modify_date" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityContainer Name="ProcurementDBModelStoreContainer">
+          <EntitySet Name="inventory" EntityType="Self.inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="payments" EntityType="Self.payments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="purchaseRequests" EntityType="Self.purchaseRequests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="siteManagers" EntityType="Self.siteManagers" Schema="dbo" store:Type="Tables" />
@@ -104,20 +133,14 @@ warning 6002: The table/view 'ProcurementDB.sys.database_firewall_rules' does no
         </EntityType>
         <EntityContainer Name="ProcurementDBEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="suppliers" EntityType="Self.supplier" />
-          <EntitySet Name="supplier_items" EntityType="ProcurementDBModel.supplier_items" />
           <EntitySet Name="database_firewall_rules" EntityType="ProcurementDBModel.database_firewall_rules" />
           <EntitySet Name="payments" EntityType="ProcurementDBModel.payment" />
           <EntitySet Name="purchaseRequests" EntityType="ProcurementDBModel.purchaseRequest" />
           <EntitySet Name="siteManagers" EntityType="ProcurementDBModel.siteManager" />
+          <EntitySet Name="supplier_items" EntityType="ProcurementDBModel.supplier_items" />
+          <EntitySet Name="inventories" EntityType="ProcurementDBModel.inventory" />
+          <EntitySet Name="orders" EntityType="ProcurementDBModel.order" />
         </EntityContainer>
-        <EntityType Name="supplier_items">
-          <Key>
-            <PropertyRef Name="supItemId" />
-          </Key>
-          <Property Name="supItemId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="supplierId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="itemName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="database_firewall_rules">
           <Key>
             <PropertyRef Name="id" />
@@ -164,6 +187,41 @@ warning 6002: The table/view 'ProcurementDB.sys.database_firewall_rules' does no
           <Property Name="site" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="approvedValue" Type="Double" />
         </EntityType>
+        <EntityType Name="supplier_items">
+          <Key>
+            <PropertyRef Name="supItemId" />
+            <PropertyRef Name="supplierId" />
+          </Key>
+          <Property Name="supItemId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="supplierId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="itemName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="unitPrice" Type="Double" />
+        </EntityType>
+        <EntityType Name="inventory">
+          <Key>
+            <PropertyRef Name="itemId" />
+          </Key>
+          <Property Name="itemId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="category" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="brand" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="source" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="maxStock" Type="Double" />
+          <Property Name="currentStock" Type="Double" />
+          <Property Name="unit" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="reqId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="createBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -178,15 +236,6 @@ warning 6002: The table/view 'ProcurementDB.sys.database_firewall_rules' does no
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="contactNo" ColumnName="contactNo" />
                 <ScalarProperty Name="email" ColumnName="email" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="supplier_items">
-            <EntityTypeMapping TypeName="ProcurementDBModel.supplier_items">
-              <MappingFragment StoreEntitySet="supplier_items">
-                <ScalarProperty Name="itemName" ColumnName="itemName" />
-                <ScalarProperty Name="supplierId" ColumnName="supplierId" />
-                <ScalarProperty Name="supItemId" ColumnName="supItemId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -232,6 +281,43 @@ warning 6002: The table/view 'ProcurementDB.sys.database_firewall_rules' does no
                 <ScalarProperty Name="snic" ColumnName="snic" />
                 <ScalarProperty Name="sname" ColumnName="sname" />
                 <ScalarProperty Name="smanagerNo" ColumnName="smanagerNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="supplier_items">
+            <EntityTypeMapping TypeName="ProcurementDBModel.supplier_items">
+              <MappingFragment StoreEntitySet="supplier_items">
+                <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
+                <ScalarProperty Name="itemName" ColumnName="itemName" />
+                <ScalarProperty Name="supplierId" ColumnName="supplierId" />
+                <ScalarProperty Name="supItemId" ColumnName="supItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inventories">
+            <EntityTypeMapping TypeName="ProcurementDBModel.inventory">
+              <MappingFragment StoreEntitySet="inventory">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="currentStock" ColumnName="currentStock" />
+                <ScalarProperty Name="maxStock" ColumnName="maxStock" />
+                <ScalarProperty Name="source" ColumnName="source" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="brand" ColumnName="brand" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="itemId" ColumnName="itemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orders">
+            <EntityTypeMapping TypeName="ProcurementDBModel.order">
+              <MappingFragment StoreEntitySet="orders">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="createBy" ColumnName="createBy" />
+                <ScalarProperty Name="reqId" ColumnName="reqId" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
