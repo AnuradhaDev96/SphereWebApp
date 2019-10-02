@@ -33,5 +33,6 @@ namespace SphereProcurement
         public virtual DbSet<supplier_items> supplier_items { get; set; }
         public virtual DbSet<inventory> inventories { get; set; }
         public virtual DbSet<order> orders { get; set; }
+        public virtual DbSet<purchaseRequestItem> purchaseRequestItems { get; set; }
     }
 }

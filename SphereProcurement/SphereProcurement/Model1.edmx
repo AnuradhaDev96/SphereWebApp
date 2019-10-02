@@ -40,6 +40,19 @@
           <Property Name="paidOn" Type="date" />
           <Property Name="paidBy" Type="varchar" MaxLength="10" />
         </EntityType>
+        <EntityType Name="purchaseRequestItems">
+          <Key>
+            <PropertyRef Name="requestItemId" />
+            <PropertyRef Name="requestId" />
+            <PropertyRef Name="supplierId" />
+          </Key>
+          <Property Name="requestItemId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="requestId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="supplierId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="amount" Type="float" />
+          <Property Name="subTotal" Type="float" />
+          <Property Name="deliveryStatus" Type="varchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="purchaseRequests">
           <Key>
             <PropertyRef Name="requestId" />
@@ -48,6 +61,7 @@
           <Property Name="totalAmount" Type="float" />
           <Property Name="createdBy" Type="varchar" MaxLength="10" />
           <Property Name="requestStatus" Type="varchar" MaxLength="20" />
+          <Property Name="deliverDate" Type="date" />
         </EntityType>
         <EntityType Name="siteManagers">
           <Key>
@@ -102,6 +116,7 @@ warning 6002: The table/view 'ProcurementDB.sys.database_firewall_rules' does no
           <EntitySet Name="inventory" EntityType="Self.inventory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="payments" EntityType="Self.payments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="purchaseRequestItems" EntityType="Self.purchaseRequestItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="purchaseRequests" EntityType="Self.purchaseRequests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="siteManagers" EntityType="Self.siteManagers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="supplier_items" EntityType="Self.supplier_items" Schema="dbo" store:Type="Tables" />
@@ -140,6 +155,7 @@ warning 6002: The table/view 'ProcurementDB.sys.database_firewall_rules' does no
           <EntitySet Name="supplier_items" EntityType="ProcurementDBModel.supplier_items" />
           <EntitySet Name="inventories" EntityType="ProcurementDBModel.inventory" />
           <EntitySet Name="orders" EntityType="ProcurementDBModel.order" />
+          <EntitySet Name="purchaseRequestItems" EntityType="ProcurementDBModel.purchaseRequestItem" />
         </EntityContainer>
         <EntityType Name="database_firewall_rules">
           <Key>
@@ -175,6 +191,7 @@ warning 6002: The table/view 'ProcurementDB.sys.database_firewall_rules' does no
           <Property Name="totalAmount" Type="Double" />
           <Property Name="createdBy" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="requestStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="deliverDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="siteManager">
           <Key>
@@ -222,6 +239,19 @@ warning 6002: The table/view 'ProcurementDB.sys.database_firewall_rules' does no
           <Property Name="date" Type="DateTime" Precision="0" />
           <Property Name="status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="purchaseRequestItem">
+          <Key>
+            <PropertyRef Name="requestItemId" />
+            <PropertyRef Name="requestId" />
+            <PropertyRef Name="supplierId" />
+          </Key>
+          <Property Name="requestItemId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="requestId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="supplierId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="Double" />
+          <Property Name="subTotal" Type="Double" />
+          <Property Name="deliveryStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -265,6 +295,7 @@ warning 6002: The table/view 'ProcurementDB.sys.database_firewall_rules' does no
           <EntitySetMapping Name="purchaseRequests">
             <EntityTypeMapping TypeName="ProcurementDBModel.purchaseRequest">
               <MappingFragment StoreEntitySet="purchaseRequests">
+                <ScalarProperty Name="deliverDate" ColumnName="deliverDate" />
                 <ScalarProperty Name="requestStatus" ColumnName="requestStatus" />
                 <ScalarProperty Name="createdBy" ColumnName="createdBy" />
                 <ScalarProperty Name="totalAmount" ColumnName="totalAmount" />
@@ -318,6 +349,18 @@ warning 6002: The table/view 'ProcurementDB.sys.database_firewall_rules' does no
                 <ScalarProperty Name="createBy" ColumnName="createBy" />
                 <ScalarProperty Name="reqId" ColumnName="reqId" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="purchaseRequestItems">
+            <EntityTypeMapping TypeName="ProcurementDBModel.purchaseRequestItem">
+              <MappingFragment StoreEntitySet="purchaseRequestItems">
+                <ScalarProperty Name="deliveryStatus" ColumnName="deliveryStatus" />
+                <ScalarProperty Name="subTotal" ColumnName="subTotal" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="supplierId" ColumnName="supplierId" />
+                <ScalarProperty Name="requestId" ColumnName="requestId" />
+                <ScalarProperty Name="requestItemId" ColumnName="requestItemId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

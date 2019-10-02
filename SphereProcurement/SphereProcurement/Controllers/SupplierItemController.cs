@@ -86,5 +86,35 @@ namespace SphereProcurement.Controllers
 
             }
         }
+
+        [Route("getByKeys/{supItemId}/{supplierId}")]
+        [HttpGet]
+        public HttpResponseMessage GetSupplierItemByKeys([FromUri]string supItemId, [FromUri]string supplierId)
+        {
+            using (ProcurementDBEntities1 dbContext = new ProcurementDBEntities1())
+            {
+
+                try
+                {
+                    HttpResponseMessage response = new HttpResponseMessage();
+                    supplier_items itemObj = dbContext.supplier_items.FirstOrDefault(i => i.supItemId == supItemId && i.supplierId == supplierId);
+                    if (itemObj == null)
+                    {
+                        response = Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = "Item cannot be found" });
+                    }
+                    else
+                    {
+                        response = Request.CreateResponse(HttpStatusCode.OK, new { statusCode = HttpStatusCode.OK, data = itemObj });
+                    }
+
+                    return response;
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); ;
+                }
+
+            }
+        }
     }
 }
