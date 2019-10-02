@@ -87,7 +87,7 @@ namespace SphereProcurement.Controllers
             }
         }
 
-        [Route("editOrderById")]
+        [Route("editOrderById/{id}")]
         [HttpPut]
         public HttpResponseMessage EditPurchaseById([FromUri]string id, [FromBody]order order)
         {
