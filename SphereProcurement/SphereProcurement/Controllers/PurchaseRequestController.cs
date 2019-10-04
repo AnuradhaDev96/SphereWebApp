@@ -300,5 +300,70 @@ namespace SphereProcurement.Controllers
             }
         }
 
+        [Route("approvePurchReq/{requestId}")]
+        [HttpPut]
+        public HttpResponseMessage AprrovePurchReq([FromUri]string requestId, [FromBody]purchaseRequest reqObj)
+        {
+            using (ProcurementDBEntities1 dbContext = new ProcurementDBEntities1())
+            {
+
+                try
+                {
+                    HttpResponseMessage response = new HttpResponseMessage();
+                    purchaseRequest requestObj = dbContext.purchaseRequests.Find(requestId);
+                    if (requestObj == null)
+                    {
+                        response = Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = "Purchase Request cannot be found" });
+                    }
+                    else
+                    {
+                        requestObj.requestStatus = "OPEN";                        
+                        dbContext.Entry(requestObj).State = System.Data.Entity.EntityState.Modified;
+                        dbContext.SaveChanges();
+                        response = Request.CreateResponse(HttpStatusCode.OK, new { statusCode = HttpStatusCode.OK, message = "Purchase Request Approved successfully" });
+                    }
+
+                    return response;
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); ;
+                }
+
+            }
+        }
+
+        [Route("deletePurchReq/{id}")]
+        [HttpDelete]
+        public HttpResponseMessage DeletePurchReq([FromUri]string id)
+        {
+            using (ProcurementDBEntities1 dbContext = new ProcurementDBEntities1())
+            {
+
+                try
+                {
+                    HttpResponseMessage response = new HttpResponseMessage();
+                    purchaseRequest requestObj = dbContext.purchaseRequests.Find(id);
+                    if (requestObj == null)
+                    {
+                        response = Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = "Purchase Request cannot be found" });
+                    }
+                    else
+                    {
+                        dbContext.purchaseRequests.Remove(requestObj);
+                        dbContext.SaveChanges();
+                        response = Request.CreateResponse(HttpStatusCode.OK, new { statusCode = HttpStatusCode.OK, message = "Purchase Request deleted successfully" });
+                    }
+
+                    return response;
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); ;
+                }
+
+            }
+        }
+
     }
 }
