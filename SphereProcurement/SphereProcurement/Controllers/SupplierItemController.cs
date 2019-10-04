@@ -98,6 +98,7 @@ namespace SphereProcurement.Controllers
                 {
                     HttpResponseMessage response = new HttpResponseMessage();
                     supplier_items itemObj = dbContext.supplier_items.FirstOrDefault(i => i.supItemId == supItemId && i.supplierId == supplierId);
+                    //var itemObj = dbContext.supplier_items.SqlQuery("select * from supplier_items").ToList();
                     if (itemObj == null)
                     {
                         response = Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = "Item cannot be found" });
@@ -116,5 +117,7 @@ namespace SphereProcurement.Controllers
 
             }
         }
+
+        
     }
 }
