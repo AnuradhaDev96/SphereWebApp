@@ -64,7 +64,7 @@ namespace SphereProcurement.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); ;
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); 
                 }
 
             }
@@ -84,7 +84,7 @@ namespace SphereProcurement.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); ;
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); 
                 }
 
             }
@@ -104,7 +104,7 @@ namespace SphereProcurement.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); ;
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); 
                 }
 
             }
@@ -124,7 +124,7 @@ namespace SphereProcurement.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); ;
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); 
                 }
 
             }
@@ -155,7 +155,7 @@ namespace SphereProcurement.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); ;
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); 
                 }
 
             }
@@ -197,7 +197,7 @@ namespace SphereProcurement.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); ;
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); 
                 }
 
             }
@@ -238,7 +238,7 @@ namespace SphereProcurement.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); ;
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); 
                 }
 
             }
@@ -268,7 +268,7 @@ namespace SphereProcurement.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); ;
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); 
                 }
 
             }
@@ -294,7 +294,7 @@ namespace SphereProcurement.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); ;
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); 
                 }
 
             }
@@ -327,7 +327,7 @@ namespace SphereProcurement.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); ;
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); 
                 }
 
             }
@@ -359,7 +359,7 @@ namespace SphereProcurement.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); ;
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { statusCode = HttpStatusCode.NotFound, message = e.Message }); 
                 }
 
             }

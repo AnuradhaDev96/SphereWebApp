@@ -13,7 +13,20 @@ namespace SphereProcurement.Controllers
     [RoutePrefix("db/order")]
     public class PurchaseOrderController : ApiController
     {
+        private static PurchaseOrderController instance = null;
+        private PurchaseOrderController() { }
+        public PurchaseOrderController getLoginController()
+        {
 
+            if (instance == null)
+            {
+                return new PurchaseOrderController();
+            }
+            else
+            {
+                return instance;
+            }
+        }
 
         [Route("addOrder")]
         [HttpPost]
@@ -25,6 +38,9 @@ namespace SphereProcurement.Controllers
                 try
                 {
                     var purchaseOrders = dbContext.orders.Add(order);
+                    dbContext.SaveChanges();
+                    purchaseRequest reqObj = dbContext.purchaseRequests.Find(order.reqId);
+                    reqObj.requestStatus = "CLOSE";
                     dbContext.SaveChanges();
                     HttpResponseMessage response = new HttpResponseMessage();
                     response = Request.CreateResponse(HttpStatusCode.OK, new { statusCode = HttpStatusCode.OK, message = "Order Added Succesfully" });
